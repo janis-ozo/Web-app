@@ -1,15 +1,9 @@
 <?php
 
-require_once __DIR__. "/vendor/autoload.php";
-
-
+require_once __DIR__ . '/vendor/autoload.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $router) {
-    $router->addRoute('GET', '/users', 'UsersController@index');
-    // {id} must be a number (\d+)
-    $router->addRoute('GET', '/users/{id:\d+}', 'UsersController@show');
-//    // The /{title} suffix is optional
-//    $router->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'UserController@index');
+    $router->addRoute('GET', '/', 'CountriesController@index');
 });
 
 // Fetch method and URI from somewhere
@@ -23,6 +17,7 @@ if (false !== $pos = strpos($uri, '?')) {
 $uri = rawurldecode($uri);
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
+
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         // ... 404 Not Found
@@ -35,8 +30,8 @@ switch ($routeInfo[0]) {
         $handler = $routeInfo[1];
         $params = $routeInfo[2];
 
-        // ... call $handler with $vars
         [$controller, $method] = explode('@', $handler);
+
         $controllerPath = '\App\Controllers\\' . $controller;
         echo (new $controllerPath)->{$method}($params);
 
