@@ -8,10 +8,7 @@ class CountriesController
 {
     public function index()
     {
-        // Create some logic
-        $countries = [
-            'LV', 'EE', 'LT'
-        ];
+        $countries = database()->select('countries', '*');
 
         View::show('Countries/index.php', [
             'countries' => $countries
