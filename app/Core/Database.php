@@ -18,10 +18,10 @@ class Database
 
         $this->connection = new Medoo([
             'database_type' => 'mysql',
-            'database_name' => 'webapp',
-            'server' => 'localhost',
-            'username' => 'janisozolkaja',
-            'password' => 'default555'
+            'database_name' => config()->get('database.name'),
+            'server' => config()->get('database.host'),
+            'username' => config()->get('database.username'),
+            'password' => config()->get('database.password')
         ]);
     }
 

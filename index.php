@@ -3,7 +3,18 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $router) {
+    // Countries
     $router->addRoute('GET', '/', 'CountriesController@index');
+    $router->addRoute('GET', '/countries', 'CountriesController@index');
+    $router->addRoute('GET', '/countries/{id:\d+}', 'CountriesController@show');
+    $router->addRoute('GET', '/countries/create', 'CountriesController@create');
+    $router->addRoute('POST', '/countries', 'CountriesController@store');
+    $router->addRoute('POST', '/countries/{id:\d+}/delete', 'CountriesController@delete');
+
+    // Cities
+    $router->addRoute('GET', '/cities/create', 'CitiesController@create');
+    $router->addRoute('POST', '/cities', 'CitiesController@store');
+    $router->addRoute('POST', '/countries/{countryId:\d+}/cities/{cityId:\d+}/delete', 'CitiesController@delete');
 });
 
 // Fetch method and URI from somewhere
